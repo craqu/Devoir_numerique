@@ -1,7 +1,5 @@
 import numpy as np
-
 from src.fields import ScalarField
-
 
 class LaplaceEquationSolver:
     """
@@ -9,7 +7,7 @@ class LaplaceEquationSolver:
     voltage field V (for example due to wires).
     """
 
-    def __init__(self, nb_iterations: int = 1000):
+    def __init__(self, nb_iterations: int = 10000):
         """
         Laplace solver constructor. Used to define the number of iterations for the relaxation method.
 
@@ -38,4 +36,16 @@ class LaplaceEquationSolver:
             the wires and in the empty space between the wires, while the field V always gives V(x, y) = 0 if (x, y)
             is not a point belonging to an electric wire.
         """
-        raise NotImplementedError
+        old_voltage = constant_voltage
+        for i in range(self.nb_iterations):
+            q1 = np.pad(old_voltage[:-2, 1:-1],1)/4
+            q2 = np.pad(old_voltage[2:, 1:-1],1)/4
+            q3 = np.pad(old_voltage[1:-1, :-2],1)/4
+            q4 = np.pad(old_voltage[1:-1, 2:],1)/4
+            res_pad = q1+q2+q3+q4
+            sol = np.where(constant_voltage == 0, res_pad, constant_voltage)
+            if np.max(abs(sol-old_voltage)) <= 1e-19:
+                print(f"finished in {i} iterations")
+                break
+            old_voltage = sol
+        return old_voltage

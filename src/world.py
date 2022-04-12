@@ -86,7 +86,6 @@ class World:
         """
         self._wires_current[wire.position] = wire.current
         self._wires_voltage[wire.position] = wire.voltage
-
         self.wires.append(wire)
 
     def _place_circuit(self, circuit: Circuit):
@@ -132,7 +131,10 @@ class World:
         if not self.wires:
             raise ValueError("Place at least one wire before computing the circuits' fields.")
         else:
-            raise NotImplementedError
+            self._potential = LaplaceEquationSolver().solve(self._wires_voltage)
+            #self._electric_field = #calcul avec le potentiel
+            #self._magnetic_field = #avec biot-savard
+            #self._energy_flux = #avec champ electric champ magnetique
 
     def show_wires_voltage(self):
         """
