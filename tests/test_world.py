@@ -26,7 +26,6 @@ class TestWorld(unittest.TestCase):
         self.world = World(self.WORLD_SHAPE)
         self.world.place(self.CIRCUIT)
         self.world.compute()
-
     def testShouldReturnTheRightMagneticVectorAtCenter(self):
         true_value = [0, 0, -4.71199948e-08]
         computed_value = self.world._magnetic_field[self.CENTER]
@@ -58,7 +57,5 @@ class TestWorld(unittest.TestCase):
         self.assertAlmostEqual(computed_value[1], true_value[1])
         # We deliberately don't test the last value of the vector, because it's equal to 0 and could therefore be
         # omitted.
-
-
 if __name__ == "__main__":
     unittest.main()
