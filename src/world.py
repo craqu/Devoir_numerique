@@ -131,10 +131,11 @@ class World:
         if not self.wires:
             raise ValueError("Place at least one wire before computing the circuits' fields.")
         else:
+            mu_0 = 1.25663706*(10**(-6))
             self._potential = LaplaceEquationSolver().solve(self._wires_voltage)
-            #self._electric_field = #calcul avec le potentiel
-            #self._magnetic_field = #avec biot-savard
-            #self._energy_flux = #avec champ electric champ magnetique
+            self._electric_field = self._potential.gradient()
+            self._magnetic_field = BiotSavartEquationSolver().solve(self._wires_current)
+            self._energy_flux = self._electric_field.cross(self._magnetic_field)/mu_0
 
     def show_wires_voltage(self):
         """
