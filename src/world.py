@@ -70,9 +70,9 @@ class World:
 
         self._wires_voltage = ScalarField(np.zeros(shape))
         self._wires_current = VectorField(np.zeros((shape[0], shape[1], 3)))
-        self._magnetic_field = None
         self._potential = None
         self._electric_field = None
+        self._magnetic_field = None
         self._energy_flux = None
 
     def _place_wire(self, wire: Wire):
@@ -116,7 +116,7 @@ class World:
         elif isinstance(an_object, Circuit):
             self._place_circuit(an_object)
 
-    def compute(self, nb_relaxation_iterations: int = 1000):
+    def compute(self, nb_relaxation_iterations: int = 10000):
         """
         Calculates all the fields present in the world using the voltage and current fields produced by the wires in the
         circuits. The known fields are the voltage (self._wires_voltage) and current (self._wires_current) fields. The
@@ -131,12 +131,10 @@ class World:
         if not self.wires:
             raise ValueError("Place at least one wire before computing the circuits' fields.")
         else:
-            mu_0 = 1.25663706*(10**(-6))
             self._potential = LaplaceEquationSolver().solve(self._wires_voltage)
             self._electric_field = -self._potential.gradient()
             self._magnetic_field = BiotSavartEquationSolver().solve(self._wires_current)
-            self._energy_flux = (self._electric_field.cross(self._magnetic_field))/mu_0
-
+            self._energy_flux = np.cross(self._electric_field, self._magnetic_field)/mu_0
     def show_wires_voltage(self):
         """
         Shows wires' voltage field.
