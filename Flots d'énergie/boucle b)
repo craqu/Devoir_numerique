@@ -1,0 +1,28 @@
+import os
+import sys
+
+# Append module root directory to sys.path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+
+from src.circuit import Circuit
+from src.wire import Current, Wire
+from src.world import World
+
+
+WORLD_SHAPE = (83, 83)
+
+WIRES = [
+    Wire(start=(16, 16), stop=(16, 67), current=Current(x=0, y=1), voltage=4.5),
+    Wire(start=(16, 67), stop=(64, 67), current=Current(x=1, y=0), voltage=4.5),
+    Wire(start=(64, 67), stop=(67, 67), current=Current(x=1, y=0), voltage=-4.5),
+    Wire(start=(67, 67), stop=(67, 16), current=Current(x=0, y=-1), voltage=-4.5),
+    Wire(start=(67, 16), stop=(19, 16), current=Current(x=-1, y=0), voltage=-4.5),
+    Wire(start=(19, 16), stop=(16, 16), current=Current(x=-1, y=0), voltage=4.5),
+]
+CIRCUIT = Circuit(wires=WIRES)
+
+world = World(WORLD_SHAPE)
+world.place(CIRCUIT)
+world.compute()
+world.show_all()
