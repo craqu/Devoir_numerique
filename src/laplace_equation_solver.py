@@ -38,14 +38,14 @@ class LaplaceEquationSolver:
         """
         old_voltage = constant_voltage
         for i in range(self.nb_iterations):
-            q1 = np.pad(old_voltage[:-2, 1:-1],1)/4
-            q2 = np.pad(old_voltage[2:, 1:-1],1)/4
-            q3 = np.pad(old_voltage[1:-1, :-2],1)/4
-            q4 = np.pad(old_voltage[1:-1, 2:],1)/4
+            q1 = np.pad(old_voltage[:-2, 1:-1], 1)/4
+            q2 = np.pad(old_voltage[2:, 1:-1], 1)/4
+            q3 = np.pad(old_voltage[1:-1, :-2], 1)/4
+            q4 = np.pad(old_voltage[1:-1, 2:], 1)/4
             res_pad = q1+q2+q3+q4
             sol = np.where(constant_voltage == 0, res_pad, constant_voltage)
             if np.max(abs(sol-old_voltage)) <= 1e-19:
                 print(f"finished in {i} iterations")
                 break
             old_voltage = sol
-        return old_voltage
+        return ScalarField(old_voltage)
