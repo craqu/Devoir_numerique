@@ -30,6 +30,7 @@ class BiotSavartEquationSolver:
             B_z(x, y) are the 3 components of the magnetic vector at a given point (x, y) in space. Note that
             B_x = B_y = 0 is always True in our 2D world.
         """
+        mu_0 = 1.25663706*(10**(-6))
         x, y, z = electric_current.shape
         x, y, z = int(x), int(y), int(z)
         resultante = np.zeros((x, y, z))
@@ -46,7 +47,6 @@ class BiotSavartEquationSolver:
                                 r_y = j-n
                                 r = np.array(r_x, r_y, 0)
                                 d = math.sqrt((r_x)**2 + (r_y)**2)
-                                mu_0 = 1.25663706*(10**(-6))
                                 pi4 = 4*math.pi
                                 I = electric_current[i, j]
                                 I_cross_r = np.cross(I, r)
@@ -55,7 +55,7 @@ class BiotSavartEquationSolver:
                             else:
                                 continue
                     resultante = np.add(resultante, empty_field)
-        return resultante
+        return VectorField(resultante)
 
 
 
