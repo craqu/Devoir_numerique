@@ -53,11 +53,3 @@ class BiotSavartEquationSolver:
                                 continue
                     resultante = np.add(resultante, empty_field)
         return VectorField(resultante)
-
-
-
-
-
-
-
-        pass
