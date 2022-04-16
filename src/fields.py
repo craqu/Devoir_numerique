@@ -98,8 +98,8 @@ class ScalarField(np.ndarray):
 
         image = ax.imshow(self.T, origin="lower")
 
-        ax.set_xlabel(xlabel=kwargs.get("x_label", "x"))
-        ax.set_ylabel(ylabel=kwargs.get("y_label", "y"))
+        ax.set_xlabel(xlabel=kwargs.get("x_label", "x [m]"))
+        ax.set_ylabel(ylabel=kwargs.get("y_label", "y [m]"))
         ax.set_title(label=kwargs.get("title", ""))
         fig.colorbar(image, orientation='vertical')
         plt.show()
@@ -278,8 +278,8 @@ class VectorField(np.ndarray):
                 arrowsize=1.5
             )
 
-        ax.set_xlabel(xlabel=kwargs.get("x_label", "x"))
-        ax.set_ylabel(ylabel=kwargs.get("y_label", "y"))
+        ax.set_xlabel(xlabel=kwargs.get("x_label", "x [m]"))
+        ax.set_ylabel(ylabel=kwargs.get("y_label", "y [m]"))
         ax.set_title(label=kwargs.get("title", ""))
         fig.colorbar(self.__stream_plot_color_bar().lines, orientation='vertical')
         plt.show()

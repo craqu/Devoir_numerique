@@ -1,0 +1,41 @@
+import os
+import sys
+
+# Append module root directory to sys.path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+
+from src.circuit import Circuit
+from src.wire import Current, Wire
+from src.world import World
+
+
+
+WORLD_SHAPE = (165, 165)
+
+WIRES = [
+    Wire(start=(64, 64), stop=(83, 64), current=Current(x=-1, y=0), voltage=-0.5),
+    Wire(start=(83, 64), stop=(102, 64), current=Current(x=-1, y=0), voltage=1.5),
+    Wire(start=(102, 64), stop=(102, 34), current=Current(x=0, y=1), voltage=1.5),
+    Wire(start=(102, 34), stop=(132, 34), current=Current(x=-1, y=0), voltage=1.5),
+    Wire(start=(132, 34), stop=(132, 84), current=Current(x=0, y=-1), voltage=1.5),
+    Wire(start=(132, 84), stop=(132, 133), current=Current(x=0, y=-1), voltage=3.5),
+    Wire(start=(132, 133), stop=(102, 133), current=Current(x=1, y=0), voltage=3.5),
+    Wire(start=(102, 133), stop=(102, 102), current=Current(x=0, y=1), voltage=3.5),
+    Wire(start=(102, 102), stop=(83, 102), current=Current(x=1, y=0), voltage=3.5),
+    Wire(start=(83, 102), stop=(64, 102), current=Current(x=1, y=0), voltage=-3.5),
+    Wire(start=(64, 102), stop=(64, 133), current=Current(x=0, y=-1), voltage=-3.5),
+    Wire(start=(64, 133), stop=(34, 133), current=Current(x=1, y=0), voltage=-3.5),
+    Wire(start=(34, 133), stop=(34, 84), current=Current(x=0, y=1), voltage=-3.5),
+    Wire(start=(34, 84), stop=(34, 34), current=Current(x=0, y=1), voltage=-0.5),
+    Wire(start=(34, 34), stop=(64, 34), current=Current(x=-1, y=0), voltage=-0.5),
+    Wire(start=(64, 34), stop=(64, 64), current=Current(x=0, y=-1), voltage=-0.5),
+]
+
+
+CIRCUIT = Circuit(wires=WIRES)
+
+world = World(WORLD_SHAPE)
+world.place(CIRCUIT)
+world.compute()
+world.show_all()
