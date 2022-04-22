@@ -52,7 +52,6 @@ class TestWorld(unittest.TestCase):
     def testShouldReturnTheRightEnergyFluxVectorAtCenter(self):
         true_value = [1.66078258e-02, -2.66764386e-12, 0]
         computed_value = self.world._energy_flux[self.CENTER]
-
         self.assertAlmostEqual(computed_value[0], true_value[0])
         self.assertAlmostEqual(computed_value[1], true_value[1])
         # We deliberately don't test the last value of the vector, because it's equal to 0 and could therefore be

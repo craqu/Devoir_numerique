@@ -32,8 +32,8 @@ class BiotSavartEquationSolver:
         """
         x, y, z = electric_current.shape
         resultante = np.zeros((x, y, z))
-        for i in range(int(x)):
-            for j in range(int(y)):
+        for i in range(x):
+            for j in range(y):
                 if (electric_current[i, j] == [0, 0, 0]).all():
                     continue
                 else:
@@ -43,10 +43,10 @@ class BiotSavartEquationSolver:
                             if (electric_current[m, n] == [0, 0, 0]).all():
                                 r_x = i-m
                                 r_y = j-n
-                                r = np.array([r_x, r_y, 0])
+                                r = -np.array([r_x, r_y, 0])
                                 d = math.sqrt((r_x)**2 + (r_y)**2)
                                 I = electric_current[i, j]
-                                I_cross_r = np.cross(r, I)
+                                I_cross_r = np.cross(I, r)
                                 empty_field[m, n] = mu_0*(I_cross_r/(pi*4*d**3))
                             else:
                                 continue
