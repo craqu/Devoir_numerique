@@ -31,17 +31,16 @@ class BiotSavartEquationSolver:
             B_x = B_y = 0 is always True in our 2D world.
         """
         x, y, z = electric_current.shape
-        x, y, z = int(x), int(y), int(z)
         resultante = np.zeros((x, y, z))
         for i in range(int(x)):
             for j in range(int(y)):
-                if (electric_current[i, j, :] == [0, 0, 0]).all():
+                if (electric_current[i, j] == [0, 0, 0]).all():
                     continue
                 else:
                     empty_field = electric_current.copy()
                     for m in range(x):
                         for n in range(y):
-                            if (electric_current[m, n, :] == [0, 0, 0]).all():
+                            if (electric_current[m, n] == [0, 0, 0]).all():
                                 r_x = i-m
                                 r_y = j-n
                                 r = np.array([r_x, r_y, 0])

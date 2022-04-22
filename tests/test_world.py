@@ -29,7 +29,7 @@ class TestWorld(unittest.TestCase):
     def testShouldReturnTheRightMagneticVectorAtCenter(self):
         true_value = [0, 0, -4.71199948e-08]
         computed_value = self.world._magnetic_field[self.CENTER]
-
+        print(computed_value)
         self.assertAlmostEqual(computed_value[0], true_value[0])
         self.assertAlmostEqual(computed_value[1], true_value[1])
         self.assertAlmostEqual(computed_value[2], true_value[2])
